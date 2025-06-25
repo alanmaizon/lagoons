@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // New: Mapping of instrument names to sample files
     const instrumentSamples = {
-        'piano': 'piano.wav', // Assuming you have a piano.wav in your samples folder
+        'piano': 'piano.wav',
+        'guitar': 'guitar.wav',
         // Add more instruments and their corresponding sample files here
         // 'guitar': 'guitar.wav',
     };
