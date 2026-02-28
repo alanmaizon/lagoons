@@ -1,101 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Lagoons</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagoons | Drift Composer</title>
     <link rel="icon" type="image/png" href="piano.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="controls">
-        <div>
-            <button id="play-loop">Play Loop</button>
-            <button id="stop-loop">Stop Loop</button>
-        </div>
-        <div>
-            <label for="volume">Volume:</label><br>
-            <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" value="0.5">
-        </div>
-        <br><br>
-        <div>
-            <label for="reverb">Reverb:</label>
-            <input type="checkbox" id="reverb" name="reverb">
-        </div>
-        <div>
-            <label for="delay">Delay:</label>
-            <input type="checkbox" id="delay" name="delay">
-        </div>
-        <br>
-        <br>
-        <div>
-            <label for="attack">Attack:</label><br>
-            <input type="range" id="attack" name="attack" min="0" max="2" step="0.01" value="0.1">
-            <br>
-            <br>
-            <label for="decay">Decay:</label><br>
-            <input type="range" id="decay" name="decay" min="0" max="2" step="0.01" value="0.2">
-            <br>
-            <br>
-            <label for="sustain">Sustain:</label><br>
-            <input type="range" id="sustain" name="sustain" min="0" max="1" step="0.01" value="0.7">
-            <br>
-            <br>
-            <label for="release">Release:</label><br>
-            <input type="range" id="release" name="release" min="0" max="2" step="0.01" value="0.5">
-        </div>
+    <div class="backdrop"></div>
+    <div class="app-shell">
+        <section class="control-panel">
+            <p class="eyebrow">Experimental Ambient Instrument</p>
+            <h1>Lagoons</h1>
+            <p class="deck">
+                Play a sparse seed, then stretch it into evolving haze, bloom, and fracture scenes.
+            </p>
 
-        <br><br>
-        <div class="controls-group">
-            <label for="instrument-select">Instrument:</label><br>
-            <select id="instrument-select">
-                <option value="piano">Piano</option>
-                <option value="guitar">Guitar</option>
-                <option value="sine">Sine Wave</option>
-                </select>
-        </div>
-        </div>
-    <nav>
-        <h1>Lagoons</h1>
-        <br>
-        <p> Client Version 1.0 | Music Keyboard</p>
-        <br>
-    </nav>
+            <div class="button-row">
+                <button id="start-drift">Start Drift</button>
+                <button id="stop-drift" class="secondary">Stop Drift</button>
+            </div>
+            <div class="button-row">
+                <button id="record-seed">Record Seed</button>
+                <button id="generate-scenes" class="secondary">Generate Scenes</button>
+            </div>
 
-    <main>
-        <div id="piano-keyboard">
-            <div class="white-key" data-note="C4"></div>
-            <div class="black-key" data-note="C#4"></div>
-            <div class="white-key" data-note="D4"></div>
-            <div class="black-key" data-note="D#4"></div>
-            <div class="white-key" data-note="E4"></div>
-            <div class="white-key" data-note="F4"></div>
-            <div class="black-key" data-note="F#4"></div>
-            <div class="white-key" data-note="G4"></div>
-            <div class="black-key" data-note="G#4"></div>
-            <div class="white-key" data-note="A4"></div>
-            <div class="black-key" data-note="A#4"></div>
-            <div class="white-key" data-note="B4"></div>
-            <div class="white-key" data-note="C5"></div>
-            <div class="black-key" data-note="C#5"></div>
-            <div class="white-key" data-note="D5"></div>
-            <div class="black-key" data-note="D#5"></div>
-            <div class="white-key" data-note="E5"></div>
-            <div class="white-key" data-note="F5"></div>
-            <div class="black-key" data-note="F#5"></div>
-            <div class="white-key" data-note="G5"></div>
-            <div class="black-key" data-note="G#5"></div>
-            <div class="white-key" data-note="A5"></div>
-            <div class="black-key" data-note="A#5"></div>
-            <div class="white-key" data-note="B5"></div>
-            <div class="white-key" data-note="C6"></div>
-        </div>
-    </main>
-    <aside>
-        <div class="night">
-            <div class="shooting_star"></div>
-            <div class="shooting_star"></div>
-            <div class="shooting_star"></div>
-        </div>
-    </aside>
+            <p id="seed-status" class="status-line">Default scenes are ready. Capture a seed to personalize them.</p>
+            <div id="seed-summary" class="seed-summary">
+                No seed recorded yet. Press Record Seed, play a short motif, then generate a fresh scene bank.
+            </div>
+
+            <section class="control-group">
+                <div class="group-heading">
+                    <h2>Performance</h2>
+                    <p>Shape the dry instrument and spatial tail.</p>
+                </div>
+
+                <label class="slider-field" for="volume">
+                    <span>Volume</span>
+                    <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" value="0.5">
+                </label>
+
+                <div class="toggle-row">
+                    <label for="reverb">
+                        <span>Reverb Wash</span>
+                        <input type="checkbox" id="reverb" name="reverb">
+                    </label>
+                    <label for="delay">
+                        <span>Echo Trails</span>
+                        <input type="checkbox" id="delay" name="delay">
+                    </label>
+                </div>
+
+                <label class="select-field" for="instrument-select">
+                    <span>Instrument</span>
+                    <select id="instrument-select">
+                        <option value="piano">Piano Grain</option>
+                        <option value="guitar">Guitar Wash</option>
+                        <option value="sine">Sine Drone</option>
+                    </select>
+                </label>
+            </section>
+
+            <section class="control-group">
+                <div class="group-heading">
+                    <h2>Envelope</h2>
+                    <p>Keep the keyboard tactile while the drift engine blooms behind it.</p>
+                </div>
+
+                <label class="slider-field" for="attack">
+                    <span>Attack</span>
+                    <input type="range" id="attack" name="attack" min="0" max="2" step="0.01" value="0.18">
+                </label>
+                <label class="slider-field" for="decay">
+                    <span>Decay</span>
+                    <input type="range" id="decay" name="decay" min="0" max="2" step="0.01" value="0.5">
+                </label>
+                <label class="slider-field" for="sustain">
+                    <span>Sustain</span>
+                    <input type="range" id="sustain" name="sustain" min="0" max="1" step="0.01" value="0.72">
+                </label>
+                <label class="slider-field" for="release">
+                    <span>Release</span>
+                    <input type="range" id="release" name="release" min="0" max="3" step="0.01" value="1.2">
+                </label>
+            </section>
+
+            <section class="control-group">
+                <div class="group-heading">
+                    <h2>Macro Field</h2>
+                    <p>One gesture can push the entire scene from still water to broken signal.</p>
+                </div>
+
+                <div class="macro-grid">
+                    <label class="slider-field" for="density">
+                        <span>Density</span>
+                        <input type="range" id="density" name="density" min="0" max="1" step="0.01" value="0.45">
+                    </label>
+                    <label class="slider-field" for="motion">
+                        <span>Motion</span>
+                        <input type="range" id="motion" name="motion" min="0" max="1" step="0.01" value="0.35">
+                    </label>
+                    <label class="slider-field" for="noise">
+                        <span>Noise</span>
+                        <input type="range" id="noise" name="noise" min="0" max="1" step="0.01" value="0.4">
+                    </label>
+                    <label class="slider-field" for="space">
+                        <span>Space</span>
+                        <input type="range" id="space" name="space" min="0" max="1" step="0.01" value="0.6">
+                    </label>
+                </div>
+            </section>
+        </section>
+
+        <main class="stage">
+            <section class="scene-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">Scene Bank</p>
+                        <h2>Drift States</h2>
+                    </div>
+                    <p id="scene-caption" class="panel-caption">Launch a state to reshape the noise floor and harmonic bed.</p>
+                </div>
+                <div id="scene-grid" class="scene-grid"></div>
+            </section>
+
+            <section class="keyboard-panel">
+                <div class="panel-heading keyboard-heading">
+                    <div>
+                        <p class="eyebrow">Seed Input</p>
+                        <h2>Play the keyboard</h2>
+                    </div>
+                    <p id="active-scene-label" class="panel-caption">Current Scene: Idle</p>
+                </div>
+                <p class="keyboard-help">
+                    Use the piano or the keys A W S E D F T G Y H U J K O L P ; ' ] \ [ Z X C V.
+                </p>
+                <div id="piano-keyboard">
+                    <div class="white-key" data-note="C4"></div>
+                    <div class="black-key" data-note="C#4"></div>
+                    <div class="white-key" data-note="D4"></div>
+                    <div class="black-key" data-note="D#4"></div>
+                    <div class="white-key" data-note="E4"></div>
+                    <div class="white-key" data-note="F4"></div>
+                    <div class="black-key" data-note="F#4"></div>
+                    <div class="white-key" data-note="G4"></div>
+                    <div class="black-key" data-note="G#4"></div>
+                    <div class="white-key" data-note="A4"></div>
+                    <div class="black-key" data-note="A#4"></div>
+                    <div class="white-key" data-note="B4"></div>
+                    <div class="white-key" data-note="C5"></div>
+                    <div class="black-key" data-note="C#5"></div>
+                    <div class="white-key" data-note="D5"></div>
+                    <div class="black-key" data-note="D#5"></div>
+                    <div class="white-key" data-note="E5"></div>
+                    <div class="white-key" data-note="F5"></div>
+                    <div class="black-key" data-note="F#5"></div>
+                    <div class="white-key" data-note="G5"></div>
+                    <div class="black-key" data-note="G#5"></div>
+                    <div class="white-key" data-note="A5"></div>
+                    <div class="black-key" data-note="A#5"></div>
+                    <div class="white-key" data-note="B5"></div>
+                    <div class="white-key" data-note="C6"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
     <script src="sound.js"></script>
     <script src="script.js"></script>
 </body>
